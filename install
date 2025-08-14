@@ -2,14 +2,35 @@
 
 set -e
 
-CONFIG="install.conf.yaml"
-DOTBOT_DIR="dotbot"
-
-DOTBOT_BIN="bin/dotbot"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-cd "${BASEDIR}"
-git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
-git submodule update --init --recursive "${DOTBOT_DIR}"
+DEPS_BIN="${BASEDIR}/bin/install-dotfiles-local-deps"
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+if [[ -x $DEPS_BIN ]]; then
+    source $DEPS_BIN
+fi
+
+if [[ "$NEW_MACHINE_CONFIG" = "true" ]]; then
+    if ! command -v git  >/dev/null || ! command -v gum >/dev/null; then
+        exit 0
+    fi
+
+    choices=$(git ls-remote --heads $(git remote get-url origin) | awk '{print $2}' | sed 's|refs/heads/||')
+
+    selected=$(echo "$choices" | gum choose --header="Which computer configuration do you want to install?")
+    
+    git checkout $selected &>/dev/null
+
+    NEW_MACHINE_CONFIG=false ./install
+else
+    CONFIG="install.conf.yaml"
+    DOTBOT_DIR="dotbot"
+
+    DOTBOT_BIN="bin/dotbot"
+
+    cd "${BASEDIR}"
+    git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
+    git submodule update --init --recursive "${DOTBOT_DIR}"
+
+    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+fi
