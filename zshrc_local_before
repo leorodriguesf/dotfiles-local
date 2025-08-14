@@ -1,1 +1,6 @@
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+if command -v brew >/dev/null 2>&1; then
+    autosuggest_path="$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    if [ -f "$autosuggest_path" ]; then
+        source "$autosuggest_path"
+    fi
+fi
