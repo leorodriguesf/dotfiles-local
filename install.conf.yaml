@@ -1,0 +1,20 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean: ["~", "~/.config"]
+
+- link:
+    ~/.shell_local_before: shell_local_before
+    ~/.shell_local_after: shell_local_after
+    ~/.zshrc_local_before: zshrc_local_before
+    ~/.zshrc_local_after: zshrc_local_after
+    ~/.bashrc_local_before: bashrc_local_before
+    ~/.bashrc_local_after: bashrc_local_after
+
+    ~/.config/aerospace: aerospace
+    ~/.hammerspoon: hammerspoon
+    ~/.config/hammerspoon: hammerspoon
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
