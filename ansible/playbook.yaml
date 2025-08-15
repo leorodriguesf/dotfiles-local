@@ -12,3 +12,5 @@
       tags: productivity
     - import_tasks: tasks/neovim.yaml
       tags: neovim
+    - import_tasks: tasks/vscode.yaml
+      tags: vscode
