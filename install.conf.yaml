@@ -22,7 +22,7 @@
     - [git submodule update --init --recursive, Installing submodules]
     - command:
         ansible-playbook ansible/playbook.yaml --ask-become-pass
-        --skip-tags=after-all
+        --skip-tags=has-user-interaction
       stdin: true
       stdout: true
       stderr: true

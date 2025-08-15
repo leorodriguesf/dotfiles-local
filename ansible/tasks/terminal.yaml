@@ -22,8 +22,12 @@
 
 - name: Open Alacritty
   shell: open /Applications/Alacritty.app
-  tags: after-all
+  tags: has-user-interaction
 
 - pause:
     prompt: Allow Alacritty on System Settings
-  tags: after-all
+  tags: has-user-interaction
+
+- name: Open Alacritty
+  shell: open /Applications/Alacritty.app
+  tags: has-user-interaction
