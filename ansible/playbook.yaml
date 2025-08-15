@@ -2,3 +2,5 @@
   tasks:
     - import_tasks: tasks/system-settings.yaml
       tags: system-settings
+    - import_tasks: tasks/terminal.yaml
+      tags: terminal
