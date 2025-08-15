@@ -10,3 +10,5 @@
       tags: zsh
     - import_tasks: tasks/productivity.yaml
       tags: productivity
+    - import_tasks: tasks/neovim.yaml
+      tags: neovim
