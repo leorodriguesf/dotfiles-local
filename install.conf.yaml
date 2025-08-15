@@ -19,3 +19,7 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
+    - command: ansible-playbook ansible/playbook.yaml
+      stdin: true
+      stdout: true
+      stderr: true
