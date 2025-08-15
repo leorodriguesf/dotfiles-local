@@ -10,7 +10,7 @@ if [[ -x $DEPS_BIN ]]; then
     source $DEPS_BIN
 fi
 
-if [[ "$NEW_MACHINE_CONFIG" = "true" ]]; then
+if [[ "$IS_NEW_MACHINE_CONFIG" = "true" ]]; then
     if ! command -v git  >/dev/null || ! command -v gum >/dev/null; then
         exit 0
     fi
@@ -21,7 +21,7 @@ if [[ "$NEW_MACHINE_CONFIG" = "true" ]]; then
     
     git checkout $selected &>/dev/null
 
-    NEW_MACHINE_CONFIG=false ./install
+    IS_NEW_MACHINE_CONFIG=false ./install
 else
     CONFIG="install.conf.yaml"
     DOTBOT_DIR="dotbot"
