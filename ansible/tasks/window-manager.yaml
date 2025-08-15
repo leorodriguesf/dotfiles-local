@@ -1,0 +1,13 @@
+- name: Install AeroSpace (window manager)
+  homebrew_cask:
+    name: nikitabobko/tap/aerospace
+
+- name:
+    Open AeroSpace (first attempt, because macOS usually asks for permissions)
+  shell: open /Applications/AeroSpace.app
+
+- pause:
+    prompt: Allow AeroSpace on System Settings
+
+- name: Open AeroSpace (second attempt)
+  shell: open /Applications/AeroSpace.app
