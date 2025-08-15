@@ -2,12 +2,10 @@
   homebrew_cask:
     name: nikitabobko/tap/aerospace
 
-- name:
-    Open AeroSpace (first attempt, because macOS usually asks for permissions)
+- name: Open AeroSpace
   shell: open /Applications/AeroSpace.app
+  tags: after-all
 
 - pause:
     prompt: Allow AeroSpace on System Settings
-
-- name: Open AeroSpace (second attempt)
-  shell: open /Applications/AeroSpace.app
+  tags: after-all

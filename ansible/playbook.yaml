@@ -1,5 +1,7 @@
 - hosts: localhost
   tasks:
+    # TODO: break tasks between install and those that need user interaction. This way
+    # users can run script and get a coffee while the installation finishes.
     - import_tasks: tasks/system-settings.yaml
       tags: system-settings
     - import_tasks: tasks/window-manager.yaml

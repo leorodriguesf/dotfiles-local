@@ -20,7 +20,9 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
-    - command: ansible-playbook ansible/playbook.yaml
+    - command:
+        ansible-playbook ansible/playbook.yaml --ask-become-pass
+        --skip-tags=after-all
       stdin: true
       stdout: true
       stderr: true

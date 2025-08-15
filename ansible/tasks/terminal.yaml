@@ -22,6 +22,8 @@
 
 - name: Open Alacritty
   shell: open /Applications/Alacritty.app
+  tags: after-all
 
 - pause:
     prompt: Allow Alacritty on System Settings
+  tags: after-all

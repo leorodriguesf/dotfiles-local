@@ -5,3 +5,7 @@
 - name: Get whoami to change its default shell
   shell: whoami
   register: user
+
+- name: Change default shell
+  become: true
+  shell: sudo chsh -s /bin/zsh {{user.stdout}}
