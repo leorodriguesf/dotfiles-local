@@ -39,8 +39,7 @@
 
 - name: Install tgpt (tool for interacting with OpenAI's GPT-3)
   shell: |
-    curl -sSL https://raw.githubusercontent.com/aandrew-me/tgpt/main/install
-    bash -s /usr/local/bin
+    curl -sSL https://raw.githubusercontent.com/aandrew-me/tgpt/main/install | bash -s /usr/local/bin
   become: true
   args:
     creates: /usr/local/bin/tgpt
