@@ -1,0 +1,9 @@
+- name: Check if LocalSend is already installed
+  shell: test -d /Applications/LocalSend.app
+  failed_when: false
+  register: localsend_installed
+
+- name: Install LocalSend
+  homebrew_cask:
+    name: localsend
+  when: localsend_installed.rc != 0

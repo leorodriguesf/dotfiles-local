@@ -1,0 +1,17 @@
+- name: Check if Google Chrome is already installed
+  shell: test -d /Applications/Google\ Chrome.app
+  failed_when: false
+  register: google_chrome_installed
+
+- name: Install Google Chrome
+  homebrew_cask:
+    name: google-chrome
+  when: google_chrome_installed.rc != 0
+
+- name: Install defaultbrowser
+  homebrew:
+    name: defaultbrowser
+
+- name: Setup Google Chrome as default browser
+  shell: defaultbrowser chrome
+  when: google_chrome_installed.rc == 0

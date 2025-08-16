@@ -1,0 +1,9 @@
+- name: Check if Spotify is already installed
+  shell: test -d /Applications/Spotify.app
+  failed_when: false
+  register: spotify_installed
+
+- name: Install Spotify
+  homebrew_cask:
+    name: spotify
+  when: spotify_installed.rc != 0
