@@ -18,3 +18,5 @@
       tags: vscode
     - import_tasks: tasks/cursor.yaml
       tags: cursor
+    - import_tasks: tasks/node.yaml
+      tags: node
