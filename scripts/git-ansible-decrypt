@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Decrypt stdin with ansible-vault, output to stdout
+
+TMP=$(mktemp /tmp/gitcrypt-dec.XXXXXX)
+trap 'rm -f "$TMP"' EXIT
+
+cat > "$TMP"
+
+ansible-vault decrypt --output - "$TMP"

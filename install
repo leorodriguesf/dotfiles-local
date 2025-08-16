@@ -4,7 +4,9 @@ set -e
 
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-DEPS_BIN="${BASEDIR}/bin/install-dotfiles-local-deps"
+source "${BASEDIR}/scripts/decrypt-from-gitattributes"
+
+DEPS_BIN="${BASEDIR}/scripts/install-dotfiles-local-deps"
 
 if [[ -x $DEPS_BIN ]]; then
     source $DEPS_BIN

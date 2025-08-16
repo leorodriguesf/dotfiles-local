@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Decrypt all files marked with ansible-vault filter in .gitattributes
+
+if [ ! -f ".gitattributes" ]; then
+  # Not file to encrypt/decrypt, move on...
+  return 0
+fi
+
+FILES=$(awk '$2 ~ /^filter=ansible-vault/ {print $1}' .gitattributes)
+
+for f in $FILES; do
+  if [ ! -f "$f" ]; then
+    echo "File $f does not exist, skipping..."
+    continue
+  fi
+
+  # Check if the file is encrypted
+  if grep -q "^\\$ANSIBLE_VAULT;" "$f"; then
+    echo "Decrypting $f..."
+    ansible-vault decrypt "$f"
+  else
+    echo "$f is already decrypted."
+  fi
+done
