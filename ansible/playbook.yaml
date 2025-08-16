@@ -22,3 +22,5 @@
       tags: node
     - import_tasks: tasks/docker.yaml
       tags: docker
+    - import_tasks: tasks/hammerspoon.yaml
+      tags: hammerspoon
