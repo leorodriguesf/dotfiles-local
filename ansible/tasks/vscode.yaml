@@ -1,3 +1,9 @@
+- name: Check if VSCode is already installed
+  shell: test -d /Applications/Visual\ Studio\ Code.app/
+  failed_when: false
+  register: vscode_installed
+
 - name: Install VSCode
   homebrew_cask:
     name: visual-studio-code
+  when: vscode_installed.rc != 0

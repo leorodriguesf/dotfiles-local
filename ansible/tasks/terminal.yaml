@@ -16,9 +16,15 @@
   shell: |
     osascript -e 'tell application "Terminal" to set font name of default settings to "MesloLGL Nerd Font Mono"'
 
+- name: Check if Alacritty is already installed
+  shell: test -d /Applications/Alacritty.app
+  failed_when: false
+  register: alacritty_installed
+
 - name: Install Alacritty
   homebrew_cask:
     name: alacritty
+  when: alacritty_installed.rc != 0
 
 - name: Open Alacritty
   shell: open /Applications/Alacritty.app

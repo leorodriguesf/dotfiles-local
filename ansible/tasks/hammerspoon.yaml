@@ -1,6 +1,12 @@
+- name: Check if Hammerspoon is already installed
+  shell: test -d /Applications/Hammerspoon.app
+  failed_when: false
+  register: hammerspoon_installed
+
 - name: Install Hammerspoon
   homebrew_cask:
     name: hammerspoon
+  when: hammerspoon_installed.rc != 0
 
 - name: Open Hammerspoon
   shell: open /Applications/Hammerspoon.app

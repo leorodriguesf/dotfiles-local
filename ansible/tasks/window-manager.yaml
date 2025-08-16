@@ -1,6 +1,12 @@
+- name: Check if AeroSpace is already installed
+  shell: test -d /Applications/AeroSpace.app
+  failed_when: false
+  register: aerospace_installed
+
 - name: Install AeroSpace (window manager)
   homebrew_cask:
     name: nikitabobko/tap/aerospace
+  when: aerospace_installed.rc != 0
 
 - name: Open AeroSpace
   shell: open /Applications/AeroSpace.app
