@@ -1,0 +1,3 @@
+- name: Install Cursor (The AI Code Editor)
+  homebrew_cask:
+    name: cursor

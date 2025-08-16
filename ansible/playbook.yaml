@@ -14,3 +14,5 @@
       tags: neovim
     - import_tasks: tasks/vscode.yaml
       tags: vscode
+    - import_tasks: tasks/cursor.yaml
+      tags: cursor
