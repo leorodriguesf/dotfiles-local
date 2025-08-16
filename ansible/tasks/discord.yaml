@@ -5,5 +5,5 @@
 
 - name: Install Discord
   homebrew_cask:
-    name: Discord
+    name: discord
   when: discord_installed.rc != 0
