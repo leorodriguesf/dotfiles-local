@@ -15,7 +15,7 @@ for f in $FILES; do
   fi
 
   # Check if the file is encrypted
-  if grep -q "^\\$ANSIBLE_VAULT;" "$f"; then
+  if grep -q '^$ANSIBLE_VAULT;' "$f"; then
     echo "Decrypting $f..."
     ansible-vault decrypt "$f"
   else
