@@ -20,9 +20,15 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
+    - command: ./scripts/decrypt-from-gitattributes
+      description: Decrypting files
+      stdin: true
+      stdout: true
+      stderr: true
     - command:
         ansible-playbook ansible/playbook.yaml --ask-become-pass
         --skip-tags=has-user-interaction
+      description: Setting up the rest of your computer
       stdin: true
       stdout: true
       stderr: true

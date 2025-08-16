@@ -3,7 +3,7 @@
 
 if [ ! -f ".gitattributes" ]; then
   # Not file to encrypt/decrypt, move on...
-  return 0
+  exit 0
 fi
 
 FILES=$(awk '$2 ~ /^filter=ansible-vault/ {print $1}' .gitattributes)
