@@ -13,6 +13,8 @@
     ~/.bashrc_local_before: bashrc_local_before
     ~/.bashrc_local_after: bashrc_local_after
     ~/.gitconfig_local: gitconfig_local
+    ~/.npmrc: npmrc
+    ~/.m2/settings.xml: settings.xml
 
     ~/.config/aerospace: aerospace
     ~/.hammerspoon: hammerspoon
