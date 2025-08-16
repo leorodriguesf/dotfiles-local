@@ -20,3 +20,5 @@
       tags: cursor
     - import_tasks: tasks/node.yaml
       tags: node
+    - import_tasks: tasks/docker.yaml
+      tags: docker
