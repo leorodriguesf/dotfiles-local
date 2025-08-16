@@ -1,9 +1,0 @@
-- name: Check if Discord is already installed
-  shell: test -d /Applications/Discord.app
-  failed_when: false
-  register: discord_installed
-
-- name: Install Discord
-  homebrew_cask:
-    name: discord
-  when: discord_installed.rc != 0

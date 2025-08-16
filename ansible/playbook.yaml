@@ -15,10 +15,8 @@
           tags: productivity
         - import_tasks: tasks/neovim.yaml
           tags: neovim
-        - import_tasks: tasks/vscode.yaml
-          tags: vscode
-        - import_tasks: tasks/cursor.yaml
-          tags: cursor
+        - import_tasks: tasks/IDE.yaml
+          tags: IDE
         - import_tasks: tasks/node.yaml
           tags: node
         - import_tasks: tasks/docker.yaml
@@ -27,8 +25,8 @@
           tags: hammerspoon
         - import_tasks: tasks/flameshot.yaml
           tags: flameshot
-        - import_tasks: tasks/discord.yaml
-          tags: discord
+        - import_tasks: tasks/communication.yaml
+          tags: communication
         - import_tasks: tasks/google-chrome.yaml
           tags: google-chrome
         - import_tasks: tasks/localsend.yaml

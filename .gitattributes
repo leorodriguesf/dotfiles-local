@@ -1,0 +1,2 @@
+ansible/tasks/communication.yaml filter=ansible-vault diff=ansible-vault
+ansible/tasks/IDE.yaml filter=ansible-vault diff=ansible-vault
