@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Decrypt all files marked with ansible-vault filter in .gitattributes
 
-if [ ! -f ".gitattributes" ]; then
+if [ ! -f ".vaultfiles" ]; then
   # Not file to encrypt/decrypt, move on...
   exit 0
 fi
 
-FILES=$(awk '$2 ~ /^filter=ansible-vault/ {print $1}' .gitattributes)
+FILES=$(awk '$1' .vaultfiles)
 
 for f in $FILES; do
   if [ ! -f "$f" ]; then

@@ -13,8 +13,6 @@
     ~/.bashrc_local_before: bashrc_local_before
     ~/.bashrc_local_after: bashrc_local_after
     ~/.gitconfig_local: gitconfig_local
-    ~/.npmrc: npmrc
-    ~/.m2/settings.xml: settings.xml
 
     ~/.config/aerospace: aerospace
     ~/.hammerspoon: hammerspoon
@@ -22,7 +20,7 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
-    - command: ./scripts/decrypt-from-gitattributes
+    - command: ./scripts/decrypt-vault-files
       description: Decrypting files
       stdin: true
       stdout: true
