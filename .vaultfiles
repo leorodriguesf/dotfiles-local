@@ -1,2 +1,3 @@
 ansible/tasks/communication.yaml
 ansible/tasks/IDE.yaml
+ansible/tasks/vaultfiles.yaml
