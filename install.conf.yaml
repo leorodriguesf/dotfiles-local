@@ -26,8 +26,8 @@
       stdout: true
       stderr: true
     - command:
-        ansible-playbook ansible/playbook.yaml --ask-become-pass
-        --skip-tags=has-user-interaction
+        ansible-playbook ansible/playbook.yaml --ask-become-pass --skip-tags
+        "has-user-interaction,ssh"
       description: Setting up the rest of your computer
       stdin: true
       stdout: true
