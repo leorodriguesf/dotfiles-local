@@ -43,7 +43,7 @@
       stderr: true
 
     - command: |
-        ansible-playbook ansible/playbook.yaml --tags workstation
+        ansible-playbook ansible/playbook.yaml --tags workstation --vault-password-file <(vault-from-op)
       description: Setting up your workstation
       stdin: true
       stdout: true
