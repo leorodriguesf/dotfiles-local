@@ -11,16 +11,3 @@
   homebrew_cask:
     name: flameshot
   when: flameshot_installed.rc != 0
-
-- name: Open flameshot
-  shell: open /Applications/flameshot.app
-  tags: has-user-interaction
-
-- pause:
-    prompt: Allow flameshot on System Settings
-  tags: has-user-interaction
-
-- name: Run flameshot on startup
-  shell:
-    /Applications/flameshot.app/Contents/MacOS/flameshot config --autostart true
-  tags: has-user-interaction

@@ -1,0 +1,8 @@
+- name: Open Hammerspoon
+  shell: open /Applications/Hammerspoon.app
+
+- pause:
+    prompt: Allow Hammerspoon on System Settings
+
+- name: Open Hammerspoon
+  shell: open /Applications/Hammerspoon.app

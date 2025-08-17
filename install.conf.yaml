@@ -20,15 +20,30 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
+
     - command: ./scripts/decrypt-vault-files
       description: Decrypting files
       stdin: true
       stdout: true
       stderr: true
-    - command:
-        ansible-playbook ansible/playbook.yaml --ask-become-pass --skip-tags
-        "has-user-interaction,ssh"
-      description: Setting up the rest of your computer
+
+    - command: |
+        ansible-playbook ansible/playbook.yaml --tags base
+      description: Installing base tools
+      stdin: true
+      stdout: true
+      stderr: true
+
+    - command: |
+        ansible-playbook ansible/playbook.yaml --tags secrets
+      description: Setting up your secret tools
+      stdin: true
+      stdout: true
+      stderr: true
+
+    - command: |
+        ansible-playbook ansible/playbook.yaml --tags workstation
+      description: Setting up your workstation
       stdin: true
       stdout: true
       stderr: true

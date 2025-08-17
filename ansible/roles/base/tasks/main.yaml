@@ -1,0 +1,16 @@
+- import_tasks: tasks/1password.yaml
+- import_tasks: tasks/communication.yaml
+- import_tasks: tasks/docker.yaml
+- import_tasks: tasks/flameshot.yaml
+- import_tasks: tasks/google-chrome.yaml
+- import_tasks: tasks/hammerspoon.yaml
+- import_tasks: tasks/IDE.yaml
+- import_tasks: tasks/localsend.yaml
+- import_tasks: tasks/neovim.yaml
+- import_tasks: tasks/node.yaml
+- import_tasks: tasks/productivity.yaml
+- import_tasks: tasks/spotify.yaml
+- import_tasks: tasks/system-settings.yaml
+- import_tasks: tasks/terminal.yaml
+- import_tasks: tasks/window-manager.yaml
+- import_tasks: tasks/zsh.yaml

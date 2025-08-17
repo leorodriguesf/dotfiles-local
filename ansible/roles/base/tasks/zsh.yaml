@@ -1,0 +1,3 @@
+- name: Add zsh-autosuggestions
+  homebrew:
+    name: zsh-autosuggestions

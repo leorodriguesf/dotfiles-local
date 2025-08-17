@@ -16,10 +16,6 @@
     defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
     defaults write -g NSAutomaticCapitalizationEnabled -bool false
 
-- name: Add dockutil (Tool for managing dock items)
-  homebrew:
-    name: dockutil
-
 - name: Remove apps from dock
   shell: |
     defaults write com.apple.dock persistent-apps -array

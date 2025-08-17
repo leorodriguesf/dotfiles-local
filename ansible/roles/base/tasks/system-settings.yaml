@@ -1,0 +1,3 @@
+- name: Add dockutil (Tool for managing dock items)
+  homebrew:
+    name: dockutil

@@ -11,7 +11,3 @@
 - name: Install defaultbrowser
   homebrew:
     name: defaultbrowser
-
-- name: Setup Google Chrome as default browser
-  shell: defaultbrowser chrome
-  when: google_chrome_installed.rc == 0

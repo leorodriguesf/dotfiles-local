@@ -1,7 +1,3 @@
-- name: Add zsh-autosuggestions
-  homebrew:
-    name: zsh-autosuggestions
-
 - name: Get whoami to change its default shell
   shell: whoami
   register: user

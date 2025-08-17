@@ -30,16 +30,14 @@
   homebrew:
     name: htop
 
-- name: Ensure /usr/local/bin exists
-  become: true
+- name: Ensure ~/.local/share/dotfiles-local/bin exists
   file:
-    dest: /usr/local/bin
+    dest: ~/.local/share/dotfiles-local/bin
     mode: 0755
     state: directory
 
 - name: Install tgpt (tool for interacting with OpenAI's GPT-3)
   shell: |
-    curl -sSL https://raw.githubusercontent.com/aandrew-me/tgpt/main/install | bash -s /usr/local/bin
-  become: true
+    curl -sSL https://raw.githubusercontent.com/aandrew-me/tgpt/main/install | bash -s ~/.local/share/dotfiles-local/bin
   args:
     creates: /usr/local/bin/tgpt

@@ -1,0 +1,15 @@
+- name: Set MesloLG (Nerd Font) as default font
+  shell: |
+    osascript -e 'tell application "Terminal" to set font name of default settings to "MesloLGL Nerd Font Mono"'
+
+- name: Open Alacritty
+  shell: open /Applications/Alacritty.app
+  tags: has-user-interaction
+
+- pause:
+    prompt: Allow Alacritty on System Settings
+  tags: has-user-interaction
+
+- name: Open Alacritty
+  shell: open /Applications/Alacritty.app
+  tags: has-user-interaction

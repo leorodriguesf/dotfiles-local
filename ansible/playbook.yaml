@@ -1,38 +1,5 @@
 - hosts: localhost
-  tasks:
-    - block:
-        - import_tasks: tasks/system-settings.yaml
-          tags: system-settings
-        - import_tasks: tasks/1password.yaml
-          tags: 1password
-        - import_tasks: tasks/window-manager.yaml
-          tags: window-manager
-        - import_tasks: tasks/terminal.yaml
-          tags: terminal
-        - import_tasks: tasks/zsh.yaml
-          tags: zsh
-        - import_tasks: tasks/productivity.yaml
-          tags: productivity
-        - import_tasks: tasks/neovim.yaml
-          tags: neovim
-        - import_tasks: tasks/IDE.yaml
-          tags: IDE
-        - import_tasks: tasks/node.yaml
-          tags: node
-        - import_tasks: tasks/docker.yaml
-          tags: docker
-        - import_tasks: tasks/hammerspoon.yaml
-          tags: hammerspoon
-        - import_tasks: tasks/flameshot.yaml
-          tags: flameshot
-        - import_tasks: tasks/communication.yaml
-          tags: communication
-        - import_tasks: tasks/google-chrome.yaml
-          tags: google-chrome
-        - import_tasks: tasks/localsend.yaml
-          tags: localsend
-        - import_tasks: tasks/spotify.yaml
-          tags: spotify
-        - import_tasks: tasks/ssh.yaml
-          tags: ssh
-      when: ansible_os_family == 'Darwin'
+  roles:
+    - { role: base, tags: ["base"] }
+    - { role: secrets, tags: ["secrets"] }
+    - { role: workstation, tags: ["workstation"] }

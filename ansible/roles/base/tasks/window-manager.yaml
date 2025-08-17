@@ -7,15 +7,3 @@
   homebrew_cask:
     name: nikitabobko/tap/aerospace
   when: aerospace_installed.rc != 0
-
-- name: Open AeroSpace
-  shell: open /Applications/AeroSpace.app
-  tags: has-user-interaction
-
-- pause:
-    prompt: Allow AeroSpace on System Settings
-  tags: has-user-interaction
-
-- name: Open AeroSpace
-  shell: open /Applications/AeroSpace.app
-  tags: has-user-interaction
