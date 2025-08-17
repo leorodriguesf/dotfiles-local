@@ -2,3 +2,6 @@ gitconfig_local
 ansible/roles/base/tasks/communication.yaml
 ansible/roles/base/tasks/IDE.yaml
 ansible/roles/workstation/tasks/vault-files.yaml
+shell_private
+ansible/roles/base/tasks/programming-languages.yaml
+ansible/roles/workstation/tasks/programming-languages.yaml

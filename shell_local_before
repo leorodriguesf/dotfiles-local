@@ -3,5 +3,5 @@ if [ -f /opt/homebrew/bin/brew ]; then
 fi
 
 path_prepend ~/.local/share/dotfiles-local/bin
-path_append "/Applications/Docker.app/Contents/Resources/bin"
-path_append "/Applications/flameshot.app/Contents/MacOS"
+path_append /Applications/Docker.app/Contents/Resources/bin
+path_append /Applications/flameshot.app/Contents/MacOS

@@ -7,8 +7,8 @@
 - import_tasks: tasks/IDE.yaml
 - import_tasks: tasks/localsend.yaml
 - import_tasks: tasks/neovim.yaml
-- import_tasks: tasks/node.yaml
 - import_tasks: tasks/productivity.yaml
+- import_tasks: tasks/programming-languages.yaml
 - import_tasks: tasks/spotify.yaml
 - import_tasks: tasks/system-settings.yaml
 - import_tasks: tasks/terminal.yaml
