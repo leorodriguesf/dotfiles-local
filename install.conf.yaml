@@ -12,8 +12,6 @@
     ~/.zshrc_local_after: zshrc_local_after
     ~/.bashrc_local_before: bashrc_local_before
     ~/.bashrc_local_after: bashrc_local_after
-    ~/.gitconfig_local: gitconfig_local
-    ~/.shell_private: shell_private
 
     ~/.config/aerospace: aerospace
     ~/.hammerspoon: hammerspoon
@@ -22,28 +20,24 @@
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
 
-    - command: ./scripts/decrypt-vault-files
-      description: Decrypting files
+    - command: |
+        ansible-playbook ansible/secrets.yaml
+      description: Setting up your secret tools
       stdin: true
       stdout: true
       stderr: true
 
+    - [op signin, "Check if 1Password is set"]
+
     - command: |
-        ansible-playbook ansible/playbook.yaml --tags base
+        op whoami 1>/dev/null && ansible-playbook ansible/playbook.yaml --tags base --vault-password-file <(vault-from-op)
       description: Installing base tools
       stdin: true
       stdout: true
       stderr: true
 
     - command: |
-        ansible-playbook ansible/playbook.yaml --tags secrets
-      description: Setting up your secret tools
-      stdin: true
-      stdout: true
-      stderr: true
-
-    - command: |
-        ansible-playbook ansible/playbook.yaml --tags workstation --vault-password-file <(vault-from-op)
+        op whoami 1>/dev/null && ansible-playbook ansible/playbook.yaml --tags workstation --vault-password-file <(vault-from-op)
       description: Setting up your workstation
       stdin: true
       stdout: true

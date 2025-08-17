@@ -1,5 +1,3 @@
-- hosts: localhost
-  roles:
-    - { role: base, tags: ["base"] }
-    - { role: secrets, tags: ["secrets"] }
-    - { role: workstation, tags: ["workstation"] }
+- import_playbook: base.yaml
+- import_playbook: secrets.yaml
+- import_playbook: workstation.yaml
