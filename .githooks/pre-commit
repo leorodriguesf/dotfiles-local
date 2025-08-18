@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Encrypt only staged files that are marked in .vaultfiles
+
+# Get the list of files tracked by ansible-vault filter
+VAULT_FILES=$(awk '$1' .vaultfiles)
+
+# Check which of these files are staged
+STAGED_FILES=$(git diff --cached --name-only)
+
+# Collect files that need encryption
+FILES_TO_ENCRYPT=()
+
+for f in $VAULT_FILES; do
+  # Is this vault file staged?
+  if echo "$STAGED_FILES" | grep -qx "$f"; then
+    # Only encrypt if not already encrypted
+    if [ -f "$f" ] && ! grep -q '^\$ANSIBLE_VAULT;' "$f"; then
+      FILES_TO_ENCRYPT+=("$f")
+    fi
+  fi
+done
+
+echo $FILES_TO_ENCRYPT
+
+if [ ${#FILES_TO_ENCRYPT[@]} -gt 0 ]; then
+  echo "Encrypting: ${FILES_TO_ENCRYPT[*]}"
+  ansible-vault encrypt "${FILES_TO_ENCRYPT[@]}"
+  git add "${FILES_TO_ENCRYPT[@]}"  # re-stage the encrypted versions
+else
+  echo "No files needed encryption"
+fi
