@@ -39,3 +39,14 @@
       UseKeychain yes
       AddKeysToAgent yes
       IdentityFile ~/.ssh/id_rsa
+
+- name: Change dotfiles remote origin URL to use ssh
+  shell: git remote set-url origin git@github.com:leorodriguesf/dotfiles.git
+  args:
+    chdir: ~/.local/share/dotfiles
+
+- name: Change dotfiles-local remote origin URL to use ssh
+  shell: |
+    git remote set-url origin git@github.com:leorodriguesf/dotfiles-local.git
+  args:
+    chdir: ~/.local/share/dotfiles-local
