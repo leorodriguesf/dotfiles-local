@@ -25,7 +25,7 @@ done
 
 if [ ${#FILES_TO_DECRYPT[@]} -gt 0 ]; then
   echo "Decrypting: ${FILES_TO_DECRYPT[*]}"
-  ansible-vault decrypt "${FILES_TO_DECRYPT[@]}"
+  ansible-vault decrypt "${FILES_TO_DECRYPT[@]}" --vault-password-file <(vault-from-op)
 else
   echo "No files needed decryption"
 fi

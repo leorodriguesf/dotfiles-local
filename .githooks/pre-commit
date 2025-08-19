@@ -24,7 +24,7 @@ echo $FILES_TO_ENCRYPT
 
 if [ ${#FILES_TO_ENCRYPT[@]} -gt 0 ]; then
   echo "Encrypting: ${FILES_TO_ENCRYPT[*]}"
-  ansible-vault encrypt "${FILES_TO_ENCRYPT[@]}"
+  ansible-vault encrypt "${FILES_TO_ENCRYPT[@]}" --vault-password-file <(vault-from-op)
   git add "${FILES_TO_ENCRYPT[@]}"  # re-stage the encrypted versions
 else
   echo "No files needed encryption"
