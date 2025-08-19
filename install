@@ -3,7 +3,7 @@
 set -e
 
 # Copy all files from .githooks to .git/hooks
-cp -v .githooks/* .git/hooks/
+cp -v .githooks/* .git/hooks/ > /dev/null
 
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
