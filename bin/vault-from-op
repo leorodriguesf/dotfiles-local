@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+op item get "macos-work-ansible-vault" --fields label=password --reveal

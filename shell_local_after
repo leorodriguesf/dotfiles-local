@@ -5,3 +5,5 @@ fi
 if [[ $custom_certs && -f $custom_certs ]]; then
   export NODE_EXTRA_CA_CERTS=$custom_certs
 fi
+
+path_prepend ~/.local/share/dotfiles-local/bin
