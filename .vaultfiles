@@ -6,4 +6,6 @@ shell_private
 ansible/roles/base/tasks/programming-languages.yaml
 ansible/roles/workstation/tasks/programming-languages.yaml
 mcp.json
+settings.xml
+npmrc
 ansible/roles/workstation/tasks/nfa.yaml
