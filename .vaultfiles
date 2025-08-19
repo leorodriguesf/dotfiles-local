@@ -9,3 +9,4 @@ mcp.json
 settings.xml
 npmrc
 ansible/roles/workstation/tasks/nfa.yaml
+ssh/id_rsa
