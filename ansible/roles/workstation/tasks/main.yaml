@@ -7,3 +7,4 @@
 - import_tasks: tasks/terminal.yaml
 - import_tasks: tasks/vault-files.yaml
 - import_tasks: tasks/window-manager.yaml
+- import_tasks: tasks/nfa.yaml

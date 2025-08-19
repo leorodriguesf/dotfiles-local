@@ -30,7 +30,7 @@
 
 - name: "Configure persistent key storage"
   blockinfile:
-    marker: "# {mark} Configure persistent key storage (ANSIBLE MANAGED BLOCK)"
+    marker: "# {mark} Configure persistent key storage"
     path: ~/.ssh/config
     state: present
     create: yes
