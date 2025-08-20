@@ -1,0 +1,9 @@
+- name: Check if Cursor is already installed
+  shell: test -d /Applications/Cursor.app
+  failed_when: false
+  register: cursor_installed
+
+- name: Install Cursor (The AI Code Editor)
+  homebrew_cask:
+    name: cursor
+  when: cursor_installed.rc != 0
