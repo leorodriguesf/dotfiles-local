@@ -1,2 +1,5 @@
+- import_tasks: tasks/communication.yaml
+- import_tasks: tasks/IDE.yaml
 - import_tasks: tasks/programming-languages.yaml
+- import_tasks: tasks/vault-files.yaml
 - import_tasks: tasks/nfa.yaml

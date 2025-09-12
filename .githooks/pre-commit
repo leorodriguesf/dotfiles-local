@@ -24,7 +24,14 @@ echo $FILES_TO_ENCRYPT
 
 if [ ${#FILES_TO_ENCRYPT[@]} -gt 0 ]; then
   echo "Encrypting: ${FILES_TO_ENCRYPT[*]}"
-  ansible-vault encrypt "${FILES_TO_ENCRYPT[@]}" --vault-password-file <(vault-from-op)
+
+  # If file includes ssh/ in the path, ask for vault password
+  if [[ "${FILES_TO_ENCRYPT[@]}" =~ "ssh/" ]]; then
+    ansible-vault encrypt "${FILES_TO_ENCRYPT[@]}" --ask-vault-pass
+  else
+    ansible-vault encrypt "${FILES_TO_ENCRYPT[@]}" --vault-password-file <(vault-from-op)
+  fi
+
   git add "${FILES_TO_ENCRYPT[@]}"  # re-stage the encrypted versions
 else
   echo "No files needed encryption"
