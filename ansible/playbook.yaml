@@ -2,3 +2,4 @@
 - import_playbook: secrets.yaml
 - import_playbook: workstation.yaml
 - import_playbook: ssh.yaml
+- import_playbook: ABI.yaml

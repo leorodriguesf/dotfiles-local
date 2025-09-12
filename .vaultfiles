@@ -3,10 +3,9 @@ ansible/roles/base/tasks/communication.yaml
 ansible/roles/base/tasks/IDE.yaml
 ansible/roles/workstation/tasks/vault-files.yaml
 shell_private
-ansible/roles/base/tasks/programming-languages.yaml
 ansible/roles/workstation/tasks/programming-languages.yaml
-mcp.json
 settings.xml
 npmrc
-ansible/roles/workstation/tasks/nfa.yaml
+ansible/roles/ABI/tasks/nfa.yaml
+ansible/roles/ABI/tasks/programming-languages.yaml
 ssh/id_rsa
