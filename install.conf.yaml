@@ -30,7 +30,14 @@
     - [op signin, "Check if 1Password is set"]
 
     - command: |
-        op whoami 1>/dev/null && ansible-playbook ansible/playbook.yaml --skip-tags secrets --vault-password-file <(vault-from-op) --ask-become-pass
+        op whoami 1>/dev/null && ansible-playbook ansible/ssh.yaml --vault-password-file <(vault-from-op)
+      description: Installing ssh keys
+      stdin: true
+      stdout: true
+      stderr: true
+
+    - command: |
+        op whoami 1>/dev/null && ansible-playbook ansible/playbook.yaml --skip-tags secrets,ssh --vault-password-file <(vault-from-op) --ask-become-pass
       description: Installing base tools and workstation
       stdin: true
       stdout: true
