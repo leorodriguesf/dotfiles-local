@@ -20,16 +20,17 @@
   failed_when: false
 
 - name: Get SSH passphrase
-  shell: op item get "SSH" --fields label=password --reveal
+  pause:
+    prompt: Enter your SSH passphrase
+    echo: no
   register: ssh_passphrase
-  failed_when: false
 
 - name: "Add SSH key to agent"
   expect:
     chdir: ~/.ssh
     command: ssh-add
     responses:
-      passphrase: "{{ ssh_passphrase.stdout }}"
+      passphrase: "{{ ssh_passphrase.user_input }}"
   failed_when: false
 
 - name: "Configure persistent key storage"

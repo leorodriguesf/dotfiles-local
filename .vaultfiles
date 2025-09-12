@@ -8,3 +8,4 @@ ansible/roles/ABI/tasks/vault-files.yaml
 ansible/roles/ABI/tasks/IDE.yaml
 ansible/roles/ABI/tasks/communication.yaml
 ssh/id_rsa
+mcp.json

@@ -25,7 +25,22 @@ done
 
 if [ ${#FILES_TO_DECRYPT[@]} -gt 0 ]; then
   echo "Decrypting: ${FILES_TO_DECRYPT[*]}"
-  ansible-vault decrypt "${FILES_TO_DECRYPT[@]}" --vault-password-file <(vault-from-op)
+
+  # Check if any file includes ssh/ in the path
+  ssh_files_found=false
+  for file in "${FILES_TO_DECRYPT[@]}"; do
+    if [[ "$file" =~ ssh/ ]]; then
+      ssh_files_found=true
+      break
+    fi
+  done
+  
+  if [ "$ssh_files_found" = true ]; then
+    ansible-vault decrypt "${FILES_TO_DECRYPT[@]}" --ask-vault-pass
+  else
+    ansible-vault decrypt "${FILES_TO_DECRYPT[@]}" --vault-password-file <(vault-from-op)
+  fi
+
 else
   echo "No files needed decryption"
 fi
