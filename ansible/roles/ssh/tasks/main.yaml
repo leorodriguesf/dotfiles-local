@@ -42,7 +42,7 @@
     block: |
       Host *
       UseKeychain yes
-      AddKeysToAgent yess
+      AddKeysToAgent yes
       IdentityFile ~/.ssh/id_rsa
   failed_when: false
 
