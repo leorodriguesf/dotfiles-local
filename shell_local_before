@@ -3,3 +3,5 @@ if [ -f /opt/homebrew/bin/brew ]; then
 fi
 path_append /Applications/Docker.app/Contents/Resources/bin
 path_append /Applications/flameshot.app/Contents/MacOS
+
+export NODE_OPTIONS=--max_old_space_size=10192

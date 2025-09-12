@@ -9,6 +9,7 @@
     src: ~/.local/share/dotfiles-local/ssh/
     dest: ~/.ssh/
     mode: 0600
+  failed_when: false
 
 - name: Ensure SSH agent is running
   shell: |
@@ -16,10 +17,12 @@
       echo "Starting ssh-agent"
       eval "$(ssh-agent -s)"
     fi
+  failed_when: false
 
 - name: Get SSH passphrase
   shell: op item get "SSH" --fields label=password --reveal
   register: ssh_passphrase
+  failed_when: false
 
 - name: "Add SSH key to agent"
   expect:
@@ -27,6 +30,7 @@
     command: ssh-add
     responses:
       passphrase: "{{ ssh_passphrase.stdout }}"
+  failed_when: false
 
 - name: "Configure persistent key storage"
   blockinfile:
@@ -37,8 +41,9 @@
     block: |
       Host *
       UseKeychain yes
-      AddKeysToAgent yes
+      AddKeysToAgent yess
       IdentityFile ~/.ssh/id_rsa
+  failed_when: false
 
 - name: Change dotfiles remote origin URL to use ssh
   shell: git remote set-url origin git@github.com:leorodriguesf/dotfiles.git
