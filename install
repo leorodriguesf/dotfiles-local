@@ -2,8 +2,12 @@
 
 set -e
 
-# Copy all files from .githooks to .git/hooks
-cp -v .githooks/* .git/hooks/ > /dev/null
+# Create symbolic links from .git/hooks to .githooks
+mkdir -p .git/hooks
+for hook in .githooks/*; do
+    hook_name=$(basename "$hook")
+    ln -sf "../../.githooks/$hook_name" ".git/hooks/$hook_name"
+done
 
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 

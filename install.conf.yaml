@@ -3,7 +3,11 @@
       create: true
       relink: true
 
-- clean: ["~", "~/.config"]
+- create:
+    ~/work:
+      mode: 0755
+
+- clean: ["~", "~/.config", "~/work"]
 
 - link:
     ~/.shell_local_before: shell_local_before
@@ -16,6 +20,11 @@
     ~/.config/aerospace: aerospace
     ~/.hammerspoon: hammerspoon
     ~/.config/hammerspoon: hammerspoon
+
+    ~/.npmrc: npmrc
+    ~/.m2: m2
+    ~/.cursor: cursor
+    ~/work/.cursor/rules: cursor/rules
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

@@ -1,11 +1,6 @@
 gitconfig_local
 shell_private
-settings.xml
 npmrc
-ansible/roles/ABI/tasks/nfa.yaml
-ansible/roles/ABI/tasks/programming-languages.yaml
-ansible/roles/ABI/tasks/vault-files.yaml
-ansible/roles/ABI/tasks/IDE.yaml
-ansible/roles/ABI/tasks/communication.yaml
-ssh/id_rsa
-mcp.json
+ansible/roles/ABI/
+cursor/
+m2/

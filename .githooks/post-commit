@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
-# Decrypt all files marked with ansible-vault filter in .vaultfiles
-
-if [ ! -f ".vaultfiles" ]; then
-  # No file list to encrypt/decrypt, move on...
-  exit 0
-fi
+# Decrypt committed files that are marked in .vaultfiles
 
 # Function to match files against gitignore-style patterns
 match_pattern() {
@@ -13,6 +8,7 @@ match_pattern() {
     
     # Skip empty patterns or comments
     [[ -z "$pattern" || "$pattern" =~ ^[[:space:]]*# ]] && return 1
+    
     
     # Normalize paths (remove leading ./ and trailing /)
     file="${file#./}"
@@ -76,48 +72,35 @@ file_matches_vaultfiles() {
     [[ "$matched" == true ]]
 }
 
+# Check which files were just committed
+COMMITTED_FILES=$(git diff --name-only HEAD~1 HEAD)
+
+# Collect files that need decryption
 FILES_TO_DECRYPT=()
 
-# Get all files tracked by git
-ALL_FILES=$(git ls-files 2>/dev/null || find . -type f -name "*" | sed 's|^\./||')
-
-# Check each file against vault patterns
-while IFS= read -r file; do
-    [[ -z "$file" ]] && continue
+# Check each committed file against vault patterns
+while IFS= read -r committed_file; do
+    [[ -z "$committed_file" ]] && continue
     
-    if file_matches_vaultfiles "$file"; then
-        if [ ! -f "$file" ]; then
-            echo "File $file does not exist, skipping..."
-            continue
-        fi
-
-        # Check if the file is encrypted
-        if grep -q '^\$ANSIBLE_VAULT;' "$file"; then
-            FILES_TO_DECRYPT+=("$file")
-        else
-            echo "$file is already decrypted."
+    if file_matches_vaultfiles "$committed_file"; then
+        # Only decrypt if currently encrypted
+        if [ -f "$committed_file" ] && grep -q '^\$ANSIBLE_VAULT;' "$committed_file"; then
+            FILES_TO_DECRYPT+=("$committed_file")
         fi
     fi
-done <<< "$ALL_FILES"
+done <<< "$COMMITTED_FILES"
 
 if [ ${#FILES_TO_DECRYPT[@]} -gt 0 ]; then
   echo "Decrypting: ${FILES_TO_DECRYPT[*]}"
 
-  # Check if any file includes ssh/ in the path
-  ssh_files_found=false
-  for file in "${FILES_TO_DECRYPT[@]}"; do
-    if [[ "$file" =~ ssh/ ]]; then
-      ssh_files_found=true
-      break
-    fi
-  done
-  
-  if [ "$ssh_files_found" = true ]; then
+  # If file includes ssh/ in the path, ask for vault password
+  if [[ "${FILES_TO_DECRYPT[@]}" =~ "ssh/" ]]; then
     ansible-vault decrypt "${FILES_TO_DECRYPT[@]}" --ask-vault-pass
   else
     ansible-vault decrypt "${FILES_TO_DECRYPT[@]}" --vault-password-file <(vault-from-op)
   fi
 
+  # No need to re-stage since this is post-commit - files are decrypted in working directory
 else
   echo "No files needed decryption"
 fi

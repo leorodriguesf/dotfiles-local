@@ -1,26 +1,94 @@
 #!/usr/bin/env bash
 # Encrypt only staged files that are marked in .vaultfiles
 
-# Get the list of files tracked by ansible-vault filter
-VAULT_FILES=$(awk '$1' .vaultfiles)
+# Function to match files against gitignore-style patterns
+match_pattern() {
+    local file="$1"
+    local pattern="$2"
+    
+    # Skip empty patterns or comments
+    [[ -z "$pattern" || "$pattern" =~ ^[[:space:]]*# ]] && return 1
+    
+    
+    # Normalize paths (remove leading ./ and trailing /)
+    file="${file#./}"
+    pattern="${pattern#./}"
+    pattern="${pattern%/}"
+    
+    local match=false
+    
+    # Handle different pattern types
+    if [[ "$pattern" == *"**"* ]]; then
+        # Convert ** patterns to proper glob patterns
+        # Replace ** with * for bash pattern matching
+        local bash_pattern="${pattern//\*\*/\*}"
+        
+        # Check if pattern contains /**/ (recursive directory match)
+        if [[ "$pattern" == *"/**/"* ]]; then
+            # For patterns like "dir/**/file", match anywhere in the path
+            local prefix="${pattern%%/**/*}"
+            local suffix="${pattern##*/**/}"
+            
+            if [[ -n "$prefix" && -n "$suffix" ]]; then
+                [[ "$file" == "$prefix"*"$suffix"* ]] && match=true
+            elif [[ -n "$prefix" ]]; then
+                [[ "$file" == "$prefix"/* ]] && match=true
+            elif [[ -n "$suffix" ]]; then
+                [[ "$file" == *"$suffix" ]] && match=true
+            fi
+        else
+            # Simple ** at end (like dir/**)
+            local base_pattern="${pattern%/**}"
+            [[ "$file" == "$base_pattern"* ]] && match=true
+        fi
+    else
+        # Regular glob pattern matching
+        [[ "$file" == $pattern ]] && match=true
+        
+        # Also check if it matches as a directory pattern
+        [[ "$file" == "$pattern"/* ]] && match=true
+    fi
+    
+    # Return result
+    [[ "$match" == true ]] && return 0 || return 1
+}
 
-# Check which of these files are staged
+# Function to check if a file matches any pattern in .vaultfiles
+file_matches_vaultfiles() {
+    local file="$1"
+    local matched=false
+    
+    # Read patterns from .vaultfiles
+    while IFS= read -r pattern; do
+        # Skip empty lines
+        [[ -z "$pattern" ]] && continue
+        
+        if match_pattern "$file" "$pattern"; then
+            matched=true
+            break  # Found a match, no need to check other patterns
+        fi
+    done < .vaultfiles
+    
+    [[ "$matched" == true ]]
+}
+
+# Check which files are staged
 STAGED_FILES=$(git diff --cached --name-only)
 
 # Collect files that need encryption
 FILES_TO_ENCRYPT=()
 
-for f in $VAULT_FILES; do
-  # Is this vault file staged?
-  if echo "$STAGED_FILES" | grep -qx "$f"; then
-    # Only encrypt if not already encrypted
-    if [ -f "$f" ] && ! grep -q '^\$ANSIBLE_VAULT;' "$f"; then
-      FILES_TO_ENCRYPT+=("$f")
+# Check each staged file against vault patterns
+while IFS= read -r staged_file; do
+    [[ -z "$staged_file" ]] && continue
+    
+    if file_matches_vaultfiles "$staged_file"; then
+        # Only encrypt if not already encrypted
+        if [ -f "$staged_file" ] && ! grep -q '^\$ANSIBLE_VAULT;' "$staged_file"; then
+            FILES_TO_ENCRYPT+=("$staged_file")
+        fi
     fi
-  fi
-done
-
-echo $FILES_TO_ENCRYPT
+done <<< "$STAGED_FILES"
 
 if [ ${#FILES_TO_ENCRYPT[@]} -gt 0 ]; then
   echo "Encrypting: ${FILES_TO_ENCRYPT[*]}"
